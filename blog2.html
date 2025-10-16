@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Blog tentang Machine Learning oleh Nouva Prasetya Ardhana." />
+  <link rel="icon" type="image/svg+xml+png" href="./logo.png">
+  <title>Nouva Prasetya Ardhana - Blog Machine Learning</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Enable dark mode class strategy for Tailwind
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <style>
+    /* Toggle circle transition */
+    .toggle-circle {
+      transition: transform 0.3s ease-in-out;
+    }
+    input:checked + label .toggle-circle {
+      transform: translateX(1.5rem);
+    }
+  </style>
+</head>
+<body class="bg-slate-300 dark:bg-slate-900 text-black dark:text-white min-h-screen flex flex-col transition-colors duration-500">
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 w-full bg-transparent z-20">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between py-6 relative">
+        <a href="index.html" class="text-lg font-bold text-blue-600 dark:text-blue-400">NouvaPrasetya</a>
+
+        <!-- Hamburger button for mobile -->
+        <button id="hamburger" aria-label="Toggle menu" class="lg:hidden relative w-8 h-8 focus:outline-none">
+          <span class="block absolute h-0.5 w-6 bg-black dark:bg-white rounded transition duration-300 ease-in-out top-2 left-1 origin-top-left"></span>
+          <span class="block absolute h-0.5 w-6 bg-black dark:bg-white rounded transition duration-300 ease-in-out top-4 left-1"></span>
+          <span class="block absolute h-0.5 w-6 bg-black dark:bg-white rounded transition duration-300 ease-in-out top-6 left-1 origin-bottom-left"></span>
+        </button>
+
+        <!-- Navigation menu -->
+        <nav id="nav-menu" class="hidden lg:flex space-x-8 text-base font-medium">
+          <a href="index.html" class="text-black dark:text-white hover:text-blue-500 dark:hover:text-blue-400 transition">Beranda</a>
+
+          <!-- Language switch button -->
+          <button onclick="window.location.href='blog2-en.html'" class="flex items-center space-x-1 text-black dark:text-white hover:text-blue-500 dark:hover:text-blue-400 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.5 12h19M12 2.5v19M6 6c2 2 10 2 12 0M6 18c2-2 10-2 12 0" />
+            </svg>
+            <span>ID</span>
+          </button>
+
+          <!-- Dark mode toggle -->
+          <div class="flex items-center space-x-2 ml-4">
+            <span class="text-sm text-slate-600 dark:text-slate-400 select-none">Light</span>
+            <input type="checkbox" id="dark-toggle" class="hidden" />
+            <label for="dark-toggle" class="cursor-pointer">
+              <div class="flex h-5 w-11 items-center rounded-full bg-slate-400 p-1 dark:bg-slate-600 relative">
+                <div class="toggle-circle h-4 w-4 rounded-full bg-white shadow-md absolute left-1"></div>
+              </div>
+            </label>
+            <span class="text-sm text-slate-600 dark:text-slate-400 select-none">Dark</span>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Mobile menu -->
+      <nav id="mobile-menu" class="hidden lg:hidden bg-slate-700 dark:bg-slate-800 rounded-lg shadow-lg py-5 mt-2 max-w-xs absolute right-4 top-full z-30">
+        <ul class="flex flex-col space-y-3 px-6">
+          <li><a href="index.html" class="block text-white hover:text-blue-400 transition">Beranda</a></li>
+            <button onclick="window.location.href='blog2-en.html'" class="flex items-center space-x-1 text-white hover:text-blue-400 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.5 12h19M12 2.5v19M6 6c2 2 10 2 12 0M6 18c2-2 10-2 12 0" />
+              </svg>
+              <span>ID</span>
+            </button>
+          </li>
+          <li class="flex items-center space-x-2">
+            <span class="text-sm text-slate-400 select-none">Light</span>
+            <input type="checkbox" id="dark-toggle-mobile" class="hidden" />
+            <label for="dark-toggle-mobile" class="cursor-pointer">
+              <div class="flex h-5 w-11 items-center rounded-full bg-slate-400 p-1 dark:bg-slate-600 relative">
+                <div class="toggle-circle h-4 w-4 rounded-full bg-white shadow-md absolute left-1"></div>
+              </div>
+            </label>
+            <span class="text-sm text-slate-400 select-none">Dark</span>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="container mx-auto px-4 pt-28 pb-12 flex-grow max-w-4xl transition-colors duration-500">
+    <article class="bg-slate-800 dark:bg-slate-700 rounded-lg shadow-lg p-8">
+      <img src="./dist/img/blog/Mtcna-Banner.png" alt="MTCNA Illustration" class="banner-img rounded mb-6" />
+      <h1 class="text-4xl font-extrabold mb-6 text-blue-500 dark:text-blue-400">
+        Memahami MTCNA: Dasar, Materi, dan Tips Ujian
+      </h1>
+      <p class="mb-4 text-gray-300 dark:text-gray-200 leading-relaxed">
+        MTCNA (MikroTik Certified Network Associate) adalah sertifikasi dasar dari MikroTik...
+      </p>
+      <p class="mb-4 text-gray-300 dark:text-gray-200 leading-relaxed">
+        Dalam MTCNA, peserta belajar konsep fundamental jaringan...
+      </p>
+
+      <h2 class="text-2xl font-semibold mt-8 mb-4 text-blue-400 dark:text-blue-300">Materi Utama MTCNA</h2>
+      <ul class="list-disc list-inside mb-4 text-gray-300 dark:text-gray-200 space-y-2">
+        <li><strong>Introduction:</strong> Pengenalan RouterOS & RouterBoard.</li>
+        <li><strong>Basic Configuration:</strong> IP addressing, DHCP, DNS.</li>
+        <li><strong>Bridging & Switching:</strong> Menghubungkan jaringan secara efisien.</li>
+        <li><strong>Routing:</strong> Routing statis dan konsep dasar routing.</li>
+        <li><strong>Wireless:</strong> Konfigurasi jaringan nirkabel dasar.</li>
+        <li><strong>Security:</strong> Firewall, NAT, dan proteksi jaringan.</li>
+        <li><strong>QoS:</strong> Membagi bandwidth dengan Queue.</li>
+        <li><strong>Tools:</strong> Torch, Packet Sniffer, Ping, Traceroute.</li>
+        <li><strong>Management:</strong> Backup, restore, upgrade, dan reset konfigurasi.</li>
+      </ul>
+
+      <h2 class="text-2xl font-semibold mt-8 mb-4 text-blue-400 dark:text-blue-300">Tips Sukses Ujian MTCNA</h2>
+      <p class="mb-4 text-gray-300 dark:text-gray-200 leading-relaxed">
+        Untuk sukses dalam ujian MTCNA, pastikan kamu tidak hanya menghafal teori tetapi juga banyak melakukan praktik langsung...
+      </p>
+      <p class="mb-4 text-gray-300 dark:text-gray-200 leading-relaxed">
+        Selain itu, fokuslah pada materi yang sering keluar dalam ujian seperti konfigurasi IP, NAT, firewall dasar, dan queue...
+      </p>
+    </article>
+  </main>
+
+<!-- Footer -->
+  <footer class="bg-slate-900 text-gray-400 text-center py-6">
+    &copy; 2025 Nouva Prasetya Ardhana. All rights reserved.
+  </footer>
+
+  <script>
+    // Dark mode toggle logic
+    const darkToggle = document.getElementById('dark-toggle');
+    const darkToggleMobile = document.getElementById('dark-toggle-mobile');
+    const html = document.documentElement;
+
+    // Initialize theme from localStorage or system preference
+    function initTheme() {
+      if (
+        localStorage.theme === 'dark' ||
+        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        html.classList.add('dark');
+        darkToggle.checked = true;
+        darkToggleMobile.checked = true;
+      } else {
+        html.classList.remove('dark');
+        darkToggle.checked = false;
+        darkToggleMobile.checked = false;
+      }
+    }
+
+    // Sync toggles and update theme
+    function toggleTheme(checked) {
+      if (checked) {
+        html.classList.add('dark');
+        localStorage.theme = 'dark';
+        darkToggle.checked = true;
+        darkToggleMobile.checked = true;
+      } else {
+        html.classList.remove('dark');
+        localStorage.theme = 'light';
+        darkToggle.checked = false;
+        darkToggleMobile.checked = false;
+      }
+    }
+
+    darkToggle.addEventListener('change', (e) => {
+      toggleTheme(e.target.checked);
+    });
+
+    darkToggleMobile.addEventListener('change', (e) => {
+      toggleTheme(e.target.checked);
+    });
+
+    initTheme();
+
+    // Hamburger menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (
+        !hamburger.contains(e.target) &&
+        !mobileMenu.contains(e.target)
+      ) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

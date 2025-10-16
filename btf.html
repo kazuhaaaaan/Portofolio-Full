@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="icon" type="image/svg+xml+png" href="./logo.png">
+  <title>Back To Friend</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at top, #0d0d0d, #1a1a1a, #0a0a1a);
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      color: #fff;
+    }
+
+    /* Partikel */
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      from { transform: translateY(-10vh) scale(1); opacity: 1; }
+      to { transform: translateY(110vh) scale(0.5); opacity: 0; }
+    }
+
+    /* Bunga jatuh */
+    .flower {
+      position: absolute;
+      font-size: 20px;
+      animation: flowerFall linear infinite;
+      opacity: 0.8;
+    }
+    @keyframes flowerFall {
+      0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Kaset retro */
+    .cassette {
+      width: 320px;
+      height: 200px;
+      background: linear-gradient(145deg, #222, #333);
+      border: 4px solid #555;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+      position: relative;
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .cassette .label {
+      width: 80%;
+      height: 40px;
+      background: #111;
+      color: #eee;
+      font-size: 18px;
+      text-align: center;
+      line-height: 40px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      box-shadow: inset 0 0 8px rgba(255,255,255,0.2);
+    }
+    .cassette .window {
+      width: 90%;
+      height: 80px;
+      background: #1a1a1a;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+      position: relative;
+    }
+    .cassette .reel {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 4px solid #ccc;
+      position: relative;
+      animation: spin 6s linear infinite;
+      animation-play-state: paused;
+    }
+    .cassette .reel::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #888;
+      transform: translate(-50%, -50%);
+    }
+    .cassette .tape {
+      position: absolute;
+      left: 50%;
+      width: 60px;
+      height: 6px;
+      background: #333;
+      transform: translateX(-50%);
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Judul lagu */
+    .title {
+      font-size: 26px;
+      font-weight: bold;
+      color: #e6e6ff;
+      text-shadow: 0 0 10px rgba(200,200,255,0.7), 0 0 20px rgba(150,150,255,0.4);
+      margin-bottom: 5px;
+      text-align: center;
+    }
+    .singer {
+      font-size: 18px;
+      font-weight: 500;
+      color: #ccc;
+      margin-bottom: 35px;
+      text-align: center;
+    }
+
+    /* Lirik */
+    .lyrics {
+      font-size: 22px;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      position: absolute;
+      bottom: 15%;
+      width: 100%;
+      color: #f5f5f5;
+      text-shadow: 0 0 8px rgba(255,255,255,0.6), 0 0 15px rgba(200,200,255,0.3);
+    }
+    .lyrics.show { opacity: 1; }
+
+    /* Tombol */
+    .controls {
+      margin-top: 20px;
+      display: flex;
+      gap: 15px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #222, #444);
+      color: white;
+      transition: all 0.3s;
+      z-index: 5;
+      box-shadow: 0 0 10px rgba(255,255,255,0.2);
+    }
+    button:hover {
+      background: linear-gradient(135deg, #555, #777);
+    }
+  </style>
+</head>
+<body>
+  <!-- Partikel random -->
+  <script>
+    for (let i = 0; i < 30; i++) {
+      let p = document.createElement("div");
+      p.className = "particle";
+      p.style.left = Math.random() * 100 + "vw";
+      p.style.animationDuration = (5 + Math.random() * 5) + "s";
+      document.body.appendChild(p);
+    }
+
+    // bunga jatuh random
+    const flowers = ["🥀","🌑","🥀","🌑","🥀"];
+    for (let i = 0; i < 20; i++) {
+      let f = document.createElement("div");
+      f.className = "flower";
+      f.innerText = flowers[Math.floor(Math.random() * flowers.length)];
+      f.style.left = Math.random() * 100 + "vw";
+      f.style.animationDuration = (5 + Math.random() * 7) + "s";
+      f.style.fontSize = (18 + Math.random() * 10) + "px";
+      document.body.appendChild(f);
+    }
+  </script>
+
+  <div class="cassette">
+    <div class="label"></div>
+    <div class="window">
+      <div class="reel left"></div>
+      <div class="tape"></div>
+      <div class="reel right"></div>
+    </div>
+  </div>
+
+  <div class="title">Back To Friend</div>
+  <div class="singer">Sombr</div>
+  <div id="lyrics" class="lyrics"></div>
+
+  <div class="controls">
+    <button onclick="startKaraoke()">Play</button>
+    <button onclick="stopKaraoke()">Stop</button>
+  </div>
+
+  <audio id="song" src="./music/back-to-freind.mp3"></audio>
+
+  <script>
+    const lyrics = [
+      [0, "~Music~"],
+      [10, "~Music~"],
+      [22, "Touch my body tender"],
+      [27, "'Cause the feeling makes me weak"],
+      [33, "Kicking off the covers"],
+      [38, "I see the ceiling, while you're looking down at me"],
+      [43, "How can we go back to being friends"],
+      [48, "When we just shared a bed?"],
+      [54, "How can you look at me and pretend"],
+      [59, "I'm someone you've never met?"],
+      [64, "It was last December"],
+      [69, "You were layin' on my chest"],
+      [74, "I still remember"],
+      [79, "I was scared to take a breath,"],
+      [81, "didn't want you to move your head"],
+      [85, "How can we go back to being friends"],
+      [90, "When we just shared a bed? (Yeah)"],
+      [96, "How can you look at me and pretend"],
+      [100, "I'm someone you've never met?"],
+      [106, "The devil in your eyes"],
+      [112, "Won't deny the lies"],
+      [119, "You've sold, I'm holding on too tight"],
+      [123, "While you let go, this is casual"],
+      [129, "~"],
+      [137, "How can we go back to being friends"],
+      [141, "When we just shared a bed? (Yeah)"],
+      [147, "How can you look at me and pretend"],
+      [152, "I'm someone you've never met?"],
+      [157, "How can we go back to being friends"],
+      [162, "When we just shared a bed? (Yeah)"],
+      [168, "How can you look at me and pretend"],
+      [173, "I'm someone you've never met?"],
+      [180, "I'm someone you've never met"],
+      [188, "Oh yeah"]
+    ];
+
+    const lyricBox = document.getElementById("lyrics");
+    const song = document.getElementById("song");
+    const reels = document.querySelectorAll(".cassette .reel");
+    let currentIndex = 0;
+    let animationFrame;
+
+    function startKaraoke() {
+      currentIndex = 0;
+      song.currentTime = 0;
+      song.play();
+      reels.forEach(r => r.style.animationPlayState = "running");
+      animationFrame = requestAnimationFrame(syncLyrics);
+    }
+
+    function stopKaraoke() {
+      song.pause();
+      song.currentTime = 0;
+      currentIndex = 0;
+      lyricBox.innerText = "";
+      reels.forEach(r => r.style.animationPlayState = "paused");
+      cancelAnimationFrame(animationFrame);
+    }
+
+    function syncLyrics() {
+      if (currentIndex < lyrics.length && song.currentTime >= lyrics[currentIndex][0]) {
+        lyricBox.innerText = lyrics[currentIndex][1];
+        lyricBox.classList.add("show");
+        setTimeout(() => lyricBox.classList.remove("show"), 3500);
+        currentIndex++;
+      }
+      animationFrame = requestAnimationFrame(syncLyrics);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Situs Sedang Maintenance</title>
+    <meta name="description" content="Halaman maintenance modern dengan animasi, countdown 3 hari yang tersimpan di browser (tidak reset saat reload)." />
+    <style>
+      :root{
+        --bg1:#0f172a; /* slate-900 */
+        --bg2:#111827; /* gray-900 */
+        --acc:#38bdf8; /* sky-400 */
+        --acc2:#a78bfa; /* violet-400 */
+        --card:#0b1220cc; /* glass */
+        --txt:#e5e7eb; /* gray-200 */
+        --muted:#9ca3af; /* gray-400 */
+        --ok:#22c55e; /* green-500 */
+        --warn:#f59e0b; /* amber-500 */
+        --danger:#ef4444; /* red-500 */
+      }
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{
+        margin:0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        color:var(--txt);
+        background: radial-gradient(1200px 600px at 20% 10%, #0ea5e9 2%, transparent 40%),
+                    radial-gradient(1000px 500px at 80% 90%, #8b5cf6 2%, transparent 40%),
+                    linear-gradient(180deg, var(--bg1), var(--bg2));
+        overflow:hidden;
+      }
+      /* Animated blobs */
+      .blob{position:absolute; filter: blur(60px); opacity:.35; mix-blend-mode:screen;}
+      .b1{width:420px;height:420px;background:#22d3ee;top:-80px;left:-60px;animation:float1 12s ease-in-out infinite}
+      .b2{width:560px;height:560px;background:#8b5cf6;bottom:-120px;right:-100px;animation:float2 14s ease-in-out infinite}
+      .b3{width:360px;height:360px;background:#60a5fa;top:40%;left:55%;animation:float3 18s ease-in-out infinite}
+      @keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,20px)}}
+      @keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-25px,-35px)}}
+      @keyframes float3{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-25px)}}
+
+      main{
+        position:relative; z-index:2;
+        height:100%; display:grid; place-items:center; padding:24px;
+      }
+      .card{
+        width:min(960px, 100%);
+        background:linear-gradient(180deg, rgba(17,24,39,.65), rgba(15,23,42,.65));
+        backdrop-filter: blur(12px);
+        border:1px solid rgba(255,255,255,.08);
+        border-radius:24px; padding:32px;
+        box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      }
+      header{
+        display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+        border-bottom:1px solid rgba(255,255,255,.08); padding-bottom:16px; margin-bottom:24px;
+      }
+      .logo{display:grid; place-items:center; width:48px; height:48px; border-radius:12px; background:linear-gradient(135deg, var(--acc), var(--acc2)); box-shadow: 0 8px 24px rgba(56,189,248,.35)}
+      .logo svg{width:28px;height:28px}
+      h1{font-size:clamp(22px, 3vw, 32px); line-height:1.2; margin:0}
+      p.lead{color:var(--muted); margin:.25rem 0 0}
+
+      .countdown{
+        display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:16px; margin:28px 0;
+      }
+      .unit{
+        background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
+        border-radius:20px; padding:16px; text-align:center;
+        transition: transform .2s ease;
+      }
+      .unit:hover{transform: translateY(-2px)}
+      .val{font-weight:700; font-size:clamp(28px, 5vw, 44px)}
+      .lbl{font-size:12px; text-transform:uppercase; letter-spacing:.12em; color:var(--muted)}
+
+      .progress{height:10px; border-radius:999px; background:rgba(255,255,255,.08); overflow:hidden; border:1px solid rgba(255,255,255,.06)}
+      .bar{height:100%; width:0%; background:linear-gradient(90deg, var(--acc), var(--acc2)); transition:width .6s ease}
+      .eta{display:flex; justify-content:space-between; gap:12px; margin:8px 2px 0; color:var(--muted); font-size:12px}
+
+      .actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:22px}
+      .btn{appearance:none; border:none; cursor:pointer; padding:12px 16px; border-radius:14px; font-weight:600}
+      .btn.primary{background:linear-gradient(135deg, var(--acc), var(--acc2)); color:#0b1020; box-shadow:0 10px 22px rgba(99,102,241,.35)}
+      .btn.ghost{background:transparent; color:var(--txt); border:1px solid rgba(255,255,255,.14)}
+
+      footer{margin-top:22px; color:var(--muted); font-size:12px; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap}
+
+      .done{display:none; align-items:center; gap:10px; color:var(--ok); font-weight:700}
+      .done svg{width:20px;height:20px}
+
+      @media (max-width:680px){
+        .countdown{grid-template-columns: repeat(2,minmax(0,1fr))}
+      }
+      @media (prefers-reduced-motion: reduce){
+        .blob{animation:none}
+        .unit{transition:none}
+        .bar{transition:none}
+      }
+    </style>
+  </head>
+  <body>
+    <!-- soft animated background blobs -->
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+
+    <main>
+      <section class="card" aria-live="polite">
+        <header>
+          <div class="logo" aria-hidden="true">
+            <!-- Simple animated spark logo -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo">
+              <path d="M12 2l2.6 5.3L20 10l-5.4.7L12 16l-2.6-5.3L4 10l5.4-2.7L12 2z" stroke="white" stroke-opacity=".9" stroke-width="1.2"/>
+              <circle cx="12" cy="12" r="2.2" fill="white" fill-opacity=".95"/>
+            </svg>
+          </div>
+          <div>
+            <h1>Situs Sedang Maintenance</h1>
+            <p class="lead">Kami sedang melakukan peningkatan sistem agar lebih cepat, aman, dan stabil. Terima kasih atas kesabaran Anda.</p>
+          </div>
+        </header>
+
+        <div class="done" id="done">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 7L9 18l-5-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Maintenance selesai. Anda bisa refresh halaman sekarang.
+        </div>
+
+        <div class="countdown" id="countdown" role="group" aria-label="Hitung mundur ke selesai">
+          <div class="unit" aria-live="polite"><div class="val" id="d">0</div><div class="lbl">Hari</div></div>
+          <div class="unit" aria-live="polite"><div class="val" id="h">00</div><div class="lbl">Jam</div></div>
+          <div class="unit" aria-live="polite"><div class="val" id="m">00</div><div class="lbl">Menit</div></div>
+          <div class="unit" aria-live="polite"><div class="val" id="s">00</div><div class="lbl">Detik</div></div>
+        </div>
+
+        <div class="progress" aria-hidden="false" aria-label="Progres maintenance">
+          <div class="bar" id="bar"></div>
+        </div>
+        <div class="eta">
+          <span>Progress: <strong id="pct">0%</strong></span>
+          <span>Selesai pada: <strong id="eta">-</strong></span>
+        </div>
+
+        <div class="actions">
+          <a class="btn primary" href="#" id="refresh">Refresh Halaman</a>
+          <a class="btn ghost" href="https://linktr.ee/Nouva_Prase" rel="nofollow noopener">Butuh Bantuan?</a>
+          <!-- Tombol reset (untuk admin/testing), muncul jika URL mengandung #admin -->
+          <button class="btn ghost" id="reset" hidden>Reset Countdown</button>
+        </div>
+
+        <footer>
+          <span id="since">Waktu mulai: -</span>
+          <span>&copy; <span id="year"></span> Nouva Prasetya</span>
+        </footer>
+      </section>
+    </main>
+
+    <script>
+      (function(){
+        const KEY_END = 'maintenanceEndTime_v1';
+        const KEY_START = 'maintenanceStartTime_v1';
+        const DURATION_MS = 3 * 24 * 60 * 60 * 1000; // 3 hari
+
+        const dEl = document.getElementById('d');
+        const hEl = document.getElementById('h');
+        const mEl = document.getElementById('m');
+        const sEl = document.getElementById('s');
+        const bar = document.getElementById('bar');
+        const pct = document.getElementById('pct');
+        const eta = document.getElementById('eta');
+        const since = document.getElementById('since');
+        const done = document.getElementById('done');
+        const countdown = document.getElementById('countdown');
+        const resetBtn = document.getElementById('reset');
+        const refresh = document.getElementById('refresh');
+        const year = document.getElementById('year');
+        year.textContent = new Date().getFullYear();
+
+        // Utility: pad 2 digits
+        const pad2 = (n) => String(n).padStart(2,'0');
+        // Intl format date/time local
+        const fmtDate = (ms) => new Date(ms).toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'short' });
+
+        // Initialize persistent times
+        let end = Number(localStorage.getItem(KEY_END));
+        let start = Number(localStorage.getItem(KEY_START));
+
+        // Admin/testing: if URL hash includes #reset, clear keys immediately
+        if (location.hash.includes('reset-hard')) {
+          localStorage.removeItem(KEY_END);
+          localStorage.removeItem(KEY_START);
+          // no return; continue to re-seed below
+        }
+
+        const now = Date.now();
+        if (!end || isNaN(end) || end < now) {
+          start = now;
+          end = now + DURATION_MS;
+          localStorage.setItem(KEY_START, String(start));
+          localStorage.setItem(KEY_END, String(end));
+        } else if (!start || isNaN(start) || start > end) {
+          // backfill start if missing
+          start = end - DURATION_MS;
+          localStorage.setItem(KEY_START, String(start));
+        }
+
+        // Show admin reset if URL has #admin
+        if (location.hash.includes('admin')) {
+          resetBtn.hidden = false;
+        }
+
+        since.textContent = 'Waktu mulai: ' + fmtDate(start);
+        eta.textContent = fmtDate(end);
+
+        function update(){
+          const now = Date.now();
+          const total = end - start;
+          let remain = Math.max(0, end - now);
+          const doneNow = remain <= 0;
+
+          const days = Math.floor(remain / (24*60*60*1000));
+          remain -= days * 24*60*60*1000;
+          const hours = Math.floor(remain / (60*60*1000));
+          remain -= hours * 60*60*1000;
+          const mins = Math.floor(remain / (60*1000));
+          remain -= mins * 60*1000;
+          const secs = Math.floor(remain / 1000);
+
+          dEl.textContent = days;
+          hEl.textContent = pad2(hours);
+          mEl.textContent = pad2(mins);
+          sEl.textContent = pad2(secs);
+
+          const progress = Math.min(100, Math.max(0, ((now - start) / total) * 100));
+          bar.style.width = progress.toFixed(1) + '%';
+          pct.textContent = progress.toFixed(1) + '%';
+
+          if (doneNow) {
+            countdown.style.display = 'none';
+            done.style.display = 'flex';
+            refresh.classList.add('primary');
+            refresh.textContent = 'Reload untuk Masuk Situs';
+            // Optional: pulse barrier full
+            bar.style.width = '100%';
+          }
+        }
+
+        // Tick each second
+        update();
+        const iv = setInterval(update, 1000);
+
+        // Buttons
+        refresh.addEventListener('click', (e)=>{
+          e.preventDefault(); location.reload();
+        });
+        resetBtn.addEventListener('click', ()=>{
+          localStorage.removeItem(KEY_END);
+          localStorage.removeItem(KEY_START);
+          location.reload();
+        });
+
+        // Keep accurate if tab gets hidden
+        document.addEventListener('visibilitychange', ()=>{
+          if (!document.hidden) update();
+        });
+
+        // Storage sync across tabs: if one tab resets, others update
+        window.addEventListener('storage', (ev)=>{
+          if (ev.key === KEY_END || ev.key === KEY_START) {
+            location.reload();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

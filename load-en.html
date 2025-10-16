@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading...</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at top, #0d0d0d, #000);
+      font-family: "Poppins", sans-serif;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    #preloader {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .preloader-logo {
+      width: 90px;
+      height: auto;
+      animation: float 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 15px rgba(0,255,255,0.6));
+    }
+
+    .brand-text {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      background: linear-gradient(90deg, #0ff, #0f9, #ff0, #f0f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 300% 100%;
+      animation: gradientMove 3s linear infinite, typing 2s steps(30, end), blink 0.75s step-end infinite;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #0ff;
+      max-width: 0;
+    }
+
+    .loading-text {
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
+    .progress-bar {
+      width: 280px;
+      height: 12px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.6);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #0ff, #0f9, #ff0, #f0f);
+      background-size: 300% 100%;
+      animation: gradientMove 2.5s linear infinite;
+      transition: width 0.3s ease-in-out;
+      border-radius: 20px;
+      box-shadow: 0 0 12px rgba(0,255,200,0.6);
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    .social-icons a {
+      font-size: 1.4rem;
+      color: #aaa;
+      transition: all 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: #0ff;
+      transform: scale(1.2);
+      text-shadow: 0 0 10px #0ff;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to   { opacity: 0; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    @keyframes typing {
+      from { max-width: 0; }
+      to { max-width: 100%; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    /* Class fix setelah animasi typing selesai */
+    .typing-done {
+      overflow: visible !important;
+      max-width: 100% !important;
+      border-right: none !important;
+      animation: gradientMove 3s linear infinite !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="preloader">
+    <img src="./logo.png" alt="Logo" class="preloader-logo" />
+    <h1 class="brand-text">nopa.magangidc.web.id</h1>
+    <h2 class="loading-text">Loading <span id="progress-text">0%</span></h2>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+
+    <div class="social-icons">
+      <a href="https://linkedin.com/in/nouva-prasetya-ardhana-775765350" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://instagram.com/its_mee_kazuuu" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://github.com/kazuhaaaaan" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://linktr.ee/Nouva_Prase" target="_blank"><i class="fas fa-link"></i></a>
+    </div>
+  </div>
+
+  <script>
+    const progressText = document.getElementById("progress-text");
+    const progressFill = document.getElementById("progress-fill");
+    const preloader = document.getElementById("preloader");
+    const brandText = document.querySelector(".brand-text");
+
+    let percent = 0;
+
+    // Detect animasi typing selesai, langsung set class typing-done
+    brandText.addEventListener("animationend", (e) => {
+      if(e.animationName === "typing") {
+        brandText.classList.add("typing-done");
+      }
+    });
+
+    let interval = setInterval(() => {
+      percent++;
+      progressText.textContent = percent + "%";
+      progressFill.style.width = percent + "%";
+
+      if(percent >= 100){
+        clearInterval(interval);
+
+        // fade out preloader setelah loading selesai
+        preloader.style.animation = "fadeOut 0.8s forwards";
+
+        setTimeout(() => {
+          window.location.href = "index-en.html";
+        }, 900);
+      }
+    }, 30);
+  </script>
+</body>
+</html>

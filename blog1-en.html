@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A blog about Machine Learning by Nouva Prasetya Ardhana." />
+  <link rel="icon" type="image/svg+xml+png" href="./logo.png">
+  <title>Nouva Prasetya Ardhana - Machine Learning Blog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <style>
+    .toggle-circle {
+      transition: transform 0.3s ease-in-out;
+    }
+    input:checked + label .toggle-circle {
+      transform: translateX(1.5rem);
+    }
+  </style>
+</head>
+<body class="bg-slate-300 dark:bg-slate-900 text-black dark:text-white min-h-screen flex flex-col transition-colors duration-500">
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 w-full bg-transparent z-20">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between py-6 relative">
+        <a href="load-en.html" class="text-lg font-bold text-blue-600 dark:text-blue-400">NouvaPrasetya</a>
+
+        <!-- Hamburger button -->
+        <button id="hamburger" aria-label="Toggle menu" class="lg:hidden relative w-8 h-8 focus:outline-none">
+          <span class="block absolute h-0.5 w-6 bg-black dark:bg-white rounded transition duration-300 ease-in-out top-2 left-1 origin-top-left"></span>
+          <span class="block absolute h-0.5 w-6 bg-black dark:bg-white rounded transition duration-300 ease-in-out top-4 left-1"></span>
+          <span class="block absolute h-0.5 w-6 bg-black dark:bg-white rounded transition duration-300 ease-in-out top-6 left-1 origin-bottom-left"></span>
+        </button>
+
+        <!-- Navigation -->
+        <nav id="nav-menu" class="hidden lg:flex space-x-8 text-base font-medium">
+          <a href="load-en.html" class="text-black dark:text-white hover:text-blue-500 dark:hover:text-blue-400 transition">Home</a>
+          
+          <!-- Language Switch -->
+          <button onclick="window.location.href='blog1.html'" class="flex items-center space-x-1 text-black dark:text-white hover:text-blue-500 dark:hover:text-blue-400 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.5 12h19M12 2.5v19M6 6c2 2 10 2 12 0M6 18c2-2 10-2 12 0" />
+            </svg>
+            <span>EN</span>
+          </button>
+
+          <!-- Dark mode toggle -->
+          <div class="flex items-center space-x-2 ml-4">
+            <span class="text-sm text-slate-600 dark:text-slate-400 select-none">Light</span>
+            <input type="checkbox" id="dark-toggle" class="hidden" />
+            <label for="dark-toggle" class="cursor-pointer">
+              <div class="flex h-5 w-11 items-center rounded-full bg-slate-400 p-1 dark:bg-slate-600 relative">
+                <div class="toggle-circle h-4 w-4 rounded-full bg-white shadow-md absolute left-1"></div>
+              </div>
+            </label>
+            <span class="text-sm text-slate-600 dark:text-slate-400 select-none">Dark</span>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Mobile Menu -->
+      <nav id="mobile-menu" class="hidden lg:hidden bg-slate-700 dark:bg-slate-800 rounded-lg shadow-lg py-5 mt-2 max-w-xs absolute right-4 top-full z-30">
+        <ul class="flex flex-col space-y-3 px-6">
+         
+            <button onclick="window.location.href='blog1.html'" class="flex items-center space-x-1 text-white hover:text-blue-400 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.5 12h19M12 2.5v19M6 6c2 2 10 2 12 0M6 18c2-2 10-2 12 0" />
+              </svg>
+              <span>EN</span>
+            </button>
+          </li>
+          <li class="flex items-center space-x-2">
+            <span class="text-sm text-slate-400 select-none">Light</span>
+            <input type="checkbox" id="dark-toggle-mobile" class="hidden" />
+            <label for="dark-toggle-mobile" class="cursor-pointer">
+              <div class="flex h-5 w-11 items-center rounded-full bg-slate-400 p-1 dark:bg-slate-600 relative">
+                <div class="toggle-circle h-4 w-4 rounded-full bg-white shadow-md absolute left-1"></div>
+              </div>
+            </label>
+            <span class="text-sm text-slate-400 select-none">Dark</span>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 pt-28 pb-12 flex-grow max-w-4xl transition-colors duration-500">
+    <article class="bg-slate-800 dark:bg-slate-700 rounded-lg shadow-lg p-8">
+      <img src="./dist/img/blog/Machine.png" alt="Machine Learning Illustration" class="banner-img  rounded mb-6" />
+      <h1 class="text-4xl font-extrabold mb-6 text-blue-500 dark:text-blue-400">Understanding Machine Learning: Fundamentals, Applications, and Emerging Trends</h1>
+      <p class="mb-4 text-gray-300 dark:text-gray-200 leading-relaxed">
+        Machine learning is a branch of artificial intelligence that enables computers to learn from data and make predictions or decisions without being explicitly programmed. With the rapid advancement of technology and the availability of big data, machine learning has become one of the fastest-growing fields, widely adopted across various industries.
+      </p>
+      <p class="mb-4 text-gray-300 dark:text-gray-200 leading-relaxed">
+        At its core, machine learning relies on algorithms that identify patterns within data. These algorithms can then be applied to classify new inputs, make predictions, or automate processes that previously required human intervention.
+      </p>
+
+      <h2 class="text-2xl font-semibold mt-8 mb-4 text-blue-400 dark:text-blue-300">Types of Machine Learning</h2>
+      <ul class="list-disc list-inside mb-4 text-gray-300 dark:text-gray-200 space-y-2">
+        <li><strong>Supervised Learning:</strong> Algorithms are trained on labeled data to predict outcomes for new inputs.</li>
+        <li><strong>Unsupervised Learning:</strong> Algorithms discover hidden structures or patterns in unlabeled data.</li>
+        <li><strong>Reinforcement Learning:</strong> Algorithms learn through trial and error, guided by rewards or penalties.</li>
+      </ul>
+
+      <h2 class="text-2xl font-semibold mt-8 mb-4 text-blue-400 dark:text-blue-300">Applications of Machine Learning</h2>
+      <p class="mb-4 text-gray-300 dark:text-gray-200 leading-relaxed">
+        Machine learning powers a wide range of applications, including facial recognition, fraud detection, product recommendations, sentiment analysis, and autonomous vehicles. For example, streaming platforms use recommendation systems based on machine learning to suggest relevant content tailored to user preferences.
+      </p>
+
+      <h2 class="text-2xl font-semibold mt-8 mb-4 text-blue-400 dark:text-blue-300">Current Trends in Machine Learning</h2>
+      <p class="mb-4 text-gray-300 dark:text-gray-200 leading-relaxed">
+        Recent developments in the field include the rise of large-scale models like GPT, optimization techniques such as pruning and quantization to improve efficiency, and the growing adoption of machine learning on edge devices to reduce latency and enhance data privacy.
+      </p>
+      <p class="mb-4 text-gray-300 dark:text-gray-200 leading-relaxed">
+        As technology continues to evolve, machine learning is expected to play an even more significant role in everyday life and across multiple industries.
+      </p>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-gray-400 text-center py-6">
+    &copy; 2025 Nouva Prasetya Ardhana. All rights reserved.
+  </footer>
+
+  <script>
+    const darkToggle = document.getElementById('dark-toggle');
+    const darkToggleMobile = document.getElementById('dark-toggle-mobile');
+    const html = document.documentElement;
+
+    function initTheme() {
+      if (
+        localStorage.theme === 'dark' ||
+        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        html.classList.add('dark');
+        darkToggle.checked = true;
+        darkToggleMobile.checked = true;
+      } else {
+        html.classList.remove('dark');
+        darkToggle.checked = false;
+        darkToggleMobile.checked = false;
+      }
+    }
+
+    function toggleTheme(checked) {
+      if (checked) {
+        html.classList.add('dark');
+        localStorage.theme = 'dark';
+        darkToggle.checked = true;
+        darkToggleMobile.checked = true;
+      } else {
+        html.classList.remove('dark');
+        localStorage.theme = 'light';
+        darkToggle.checked = false;
+        darkToggleMobile.checked = false;
+      }
+    }
+
+    darkToggle.addEventListener('change', (e) => {
+      toggleTheme(e.target.checked);
+    });
+
+    darkToggleMobile.addEventListener('change', (e) => {
+      toggleTheme(e.target.checked);
+    });
+
+    initTheme();
+
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

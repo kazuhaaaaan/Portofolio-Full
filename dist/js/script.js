@@ -52,3 +52,26 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
 } else {
   darkToggle.checked = false;
 }
+
+//cv otomatis
+  document.getElementById("cvoto").addEventListener("click", function(e) {
+    e.preventDefault(); // cegah link berjalan normal
+    const link = document.createElement("a");
+    link.href = "cv.pdf";   // file yang mau diunduh
+    link.download = "Cv Nouva Prasetya.pdf"; // nama file hasil download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+
+  let lang = "en";
+  document.getElementById("langSwitcher").addEventListener("click", () => {
+    lang = lang === "en" ? "id" : "en";
+    document.getElementById("langLabel").innerText = lang.toUpperCase();
+
+    document.getElementById("titleEN").classList.toggle("hidden", lang !== "en");
+    document.getElementById("titleID").classList.toggle("hidden", lang !== "id");
+  });
+
+  
+
